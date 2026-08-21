@@ -1,0 +1,471 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #080b12;
+  color: white;
+}
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+/*=========================================================== */
+/*                        SIDE BAR                            */
+/*=========================================================== */
+.sidebar {
+  width: 220px;
+  background: #0d111b;
+  border-right: 1px solid #202533;
+  padding: 0 16px;
+  /* Các thành phần được sắp xếp theo chiều dọc */
+  display: flex;
+  flex-direction: column;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.logo span {
+  font-size: 24px;
+  color: #9b5cff
+}
+.logo h1 {
+  font-size: 24px;
+  color: #ffffff;
+}
+.logo h1>span {
+  color: #9b5cff
+}
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.navigation a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  color: #aeb4c2;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 20px;
+}
+.navigation a:hover {
+  background: #1c2030;
+  color: white;
+  font-weight: bold;
+  transform: translateY(2px);
+}
+.navigation a:active {
+  background: #1c2030;
+  color: #9b5cff;
+}
+.genres {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.genres h2 {
+  font-size: 12px;
+  color: #9b5cff;
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+.genres a {
+  color: #aeb4c2;
+  text-decoration: none;
+  font-size: 18px;
+  margin-top: 8px;
+}
+.genres a:hover {
+  color: white;
+  font-weight: bold;
+}
+.theme-toggle {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 4px;
+  color: #aeb4c2;
+  font-size: 20px;
+  width: 190px;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+/* Chỉnh checkbox thành toggle */
+.theme-toggle input {
+  appearance: none;
+  width: 50px;
+  height: 24px;
+  background: #252b38;
+  border-radius: 20px;
+  border: 1px solid #ffffff;
+  position: relative;
+  cursor: pointer;
+  transition: 0.3s;
+}
+/* Tạo nút tròn bên trong */
+.theme-toggle input::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0.5px;
+  left: 1px;
+  background: #aeb4c2;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+.theme-toggle input:checked {
+  background: #9b5cff;
+}
+.theme-toggle input:checked::before {
+  transform: translateX(26px);
+  background: white;
+}
+/*=========================================================== */
+/*                        MAIN CONTENT                        */
+/*=========================================================== */
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 24px 32px;
+  background: #080b12;
+}
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+.header-title h2 {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+.header-title p {
+  color: #7f8797;
+  font-size: 16px;
+}
+/* Search bar */
+.search-bar {
+  width: 280px;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: #111722;
+  border: 1px solid #242b38;
+  border-radius: 10px;
+  margin-left: 24px;
+}
+.search-bar span {
+  color: #7f8797;
+  font-size: 40px;
+  padding-bottom: 12px;
+}
+.search-bar input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 20px;
+}
+/*=========================================================== */
+/*                      FEATURED MOVIE                        */
+/*=========================================================== */
+.featured-movie {
+  position: relative;
+  min-height: 360px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 32px;
+  background:
+    linear-gradient(90deg,
+      #111722 0%,
+      rgba(17, 23, 34, 0.9) 35%,
+      rgba(17, 23, 34, 0.3) 100%),
+    url("https://image.tmdb.org/t/p/original/your-image.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.featured-content {
+  width: 50%;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 360px;
+}
+.featured-label {
+  color: #9b5cff;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+.featured-content h1 {
+  font-size: 42px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.movie-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  color: #b7bdc9;
+  font-size: 14px;
+}
+.featured-content p {
+  max-width: 500px;
+  color: #aeb4c2;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.watch-button {
+  width: fit-content;
+  padding: 11px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #9b5cff;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.watch-button:hover {
+  transform: translateY(-2px);
+  background: #aa72ff;
+}
+.watch-button:active {
+  transform: translateY(2px);
+  background: #aa72ff;
+}
+/*=========================================================== */
+/*                      MOVIE SECTION                         */
+/*=========================================================== */
+.movie-section {
+  margin-bottom: 32px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.section-header h2 {
+  font-size: 20px;
+}
+.section-header button {
+  border: none;
+  background: transparent;
+  color: #9b5cff;
+  cursor: pointer;
+}
+/*=========================================================== */
+/*                        MOVIE LIST                          */
+/*=========================================================== */
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+/*=========================================================== */
+/*                        MOVIE CARD                          */
+/*=========================================================== */
+.movie-card {
+  min-width: 0;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.movie-card:hover {
+  transform: translateY(-4px);
+}
+.movie-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.movie-info h3 {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 6px;
+}
+.movie-card .movie-meta {
+  display: flex;
+  gap: 10px;
+  color: #7f8797;
+  font-size: 12px;
+}
+/*=========================================================== */
+/*                  TÙY CHỈNH TƯƠNG THÍCH                     */
+/*=========================================================== */
+@media (max-width: 1100px) {
+    .movie-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Màn hình nhỏ */
+@media (max-width: 800px) {
+    .movie-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Điện thoại */
+@media (max-width: 500px) {
+    .movie-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+}
+/*=========================================================== */
+/*                     RESPONSIVE SIDEBAR                     */
+/*=========================================================== */
+@media (max-width: 800px) {
+  .sidebar {
+      width: 180px;
+  }
+  .main-content {
+      padding: 20px;
+  }
+}
+/*=========================================================== */
+/*                     RESPONSIVE HEADER                      */
+/*=========================================================== */
+@media (max-width: 600px) {
+  .header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+  }
+  .search-bar {
+      width: 100%;
+  }
+}
+/*=========================================================== */
+/*                 RESPONSIVE FEATURED MOVIE                  */
+/*=========================================================== */
+@media (max-width: 700px) {
+  .featured-content {
+      width: 80%;
+      padding: 32px;
+  }
+  .featured-content h1 {
+      font-size: 32px;
+  }
+}
+
+/* Điện thoại */
+@media (max-width: 500px) {
+  .featured-movie {
+      min-height: 320px;
+  }
+  .featured-content {
+      width: 100%;
+      padding: 24px;
+  }
+  .featured-content h1 {
+      font-size: 28px;
+  }
+}
+
+/*=========================================================== */
+/*             NÚT VHQ (LÀM TÀO LAO Á ĐỪNG CARE)              */
+/*=========================================================== */
+.tooltip-wrapper {
+  width: 130px;
+  height: 50px;
+  background: linear-gradient(130deg, white, skyblue);
+  border-radius: 10px;
+  position: fixed;
+  bottom: 70px;
+  right: 50px;
+}
+.my-btn {
+  background: transparent;
+  font-size: 20px;
+  font-weight: bold;
+  color:blue;
+  border: none;
+  padding-top: 12px;
+}
+.tooltip-wrapper:hover {
+  transform: rotate(360deg);
+}
+/* 1. Định nghĩa chuyển động xoay 360 độ */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* 2. Khi hover: gọi animation 'spin', chạy trong 1 giây, đều đặn (linear) và vô tận (infinite) */
+.tooltip-wrapper:hover {
+  animation: spin 0.1s linear infinite;
+}
+.tooltip-wrapper:active {
+  transform: scale(0.95);
+}
+
+
+/* Thẻ thông tin ẩn mặc định */
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  width: 60px;
+  height:60px;
+  background: linear-gradient(130deg, white, skyblue, blue);
+  color: #fff;
+  text-align: center;
+  border-radius: 50%;
+  padding-top: 12px;
+  font-size: 45px;
+  /* Định vị tooltip nằm phía trên nút */
+  position: absolute;
+  bottom: 125%; 
+  left: 50%;
+  transform: translateX(-50%);
+  /* Hiệu ứng hiện mượt mà */
+  transition: opacity 0.3s;
+  z-index: 100;
+}
+
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Đặt mũi tên dính vào đáy của khung thông báo */
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* Tạo hình tam giác bằng border */
+  border-width: 14px;
+  border-style: solid;
+  border-color: white transparent transparent transparent; 
+}
+/* Khi rê chuột vào khung (hover) -> Hiện tooltip */
+.tooltip-wrapper:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
