@@ -3,16 +3,15 @@ function MovieCard({ movie }) {
     return (
         <article className="movie-card">
             <div className="movie-poster">
-                <img
-                    src={movie.poster}
-                    alt={movie.title}
+                <img src={movie.Poster} alt={movie.Title}
                 />
             </div>
+            <button className="favorite-btn"> ♥ </button>
             <div className="movie-info">
-                <h3>{movie.title}</h3>
+                <h3>{movie.Title}</h3>
                 <div className="movie-meta">
-                    <span>{movie.year}</span>
-                    <span>⭐ {movie.rating}</span>
+                    <span>{movie.Year}</span>
+                    <span>{movie.Type}</span>
                 </div>
             </div>
         </article>

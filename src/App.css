@@ -219,7 +219,7 @@ body {
   line-height: 1.1;
   margin-bottom: 16px;
 }
-.movie-meta {
+.featured-meta {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -292,7 +292,12 @@ body {
   transition: transform 0.2s;
 }
 .movie-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
+}
+.movie-poster {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
 }
 .movie-card img {
   width: 100%;
@@ -302,6 +307,19 @@ body {
   border-radius: 10px;
   margin-bottom: 10px;
 }
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
 .movie-info h3 {
   font-size: 14px;
   white-space: nowrap;
@@ -309,11 +327,14 @@ body {
   text-overflow: ellipsis;
   margin-bottom: 6px;
 }
-.movie-card .movie-meta {
+.movie-meta {
   display: flex;
-  gap: 10px;
-  color: #7f8797;
-  font-size: 12px;
+  gap: 8px;
+  font-size: 13px;
+  color: #8b93a7;
+}
+.movie-meta span:first-child {
+  color: #d6d9e0;
 }
 /*=========================================================== */
 /*                  TÙY CHỈNH TƯƠNG THÍCH                     */

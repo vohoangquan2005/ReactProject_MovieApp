@@ -8,7 +8,7 @@ function SideBar() {
                     <h1>MOVIE <span>APP</span></h1>
                 </div>
                 {/* Điều hướng */}
-                <nar className="navigation">
+                <div className="navigation">
                     <a href="#">
                         <span>⌂</span>
                         <span>Home</span>
@@ -34,7 +34,7 @@ function SideBar() {
                         <span>Watchlist</span>
                     </a>
                     
-                </nar>
+                </div>
                 <div className="genres">
                     <h2>GENRES</h2>
                     <a href="#">Action</a>

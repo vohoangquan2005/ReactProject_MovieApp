@@ -6,7 +6,7 @@ function MovieList({ movies }) {
         <div className="movie-list">
             {movies.map((movie) => (
                 <MovieCard
-                    key={movie.id}
+                    key={movie.imdbID}
                     movie={movie}
                 />
             ))}
