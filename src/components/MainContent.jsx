@@ -4,13 +4,18 @@ import FeaturedMovie from "./FeaturedMovie";
 import MovieSection from "./MovieSection";
 import MovieList from "./MovieList";
 
-function MainContent( {movies}) {
+function MainContent( {movies, search, setSearch, handleSearch, loading, error} ) {
     return (
         <main className="main-content">
-            <Header />
+            <Header 
+                search={search} 
+                setSearch={setSearch}
+                handleSearch={handleSearch}/>
 
-            <MovieList 
-                movies={movies} />
+            {loading && <p>Loading movies...</p>}
+            {error && !loading && <p>{error}</p>}
+
+            {!loading && !error && <MovieList movies={movies} />}
 
             <div className="tooltip-wrapper">
                 <button className="my-btn">VHQ</button>
