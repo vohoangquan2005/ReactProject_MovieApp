@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
-import { searchMovies } from "./services/movieApi";
+import { searchMovies, getMovieDetails } from "./services/movieApi";
 
 // Components
 import SideBar from "./components/SideBar.jsx"
@@ -12,6 +12,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
     const loadMovies = async () => {
@@ -57,6 +58,21 @@ function App() {
     }
   }
 
+  const handleMovieClick = async (imdbID) => {
+    console.log("Clicked imdbID:", imdbID);
+    try {
+      const data = await getMovieDetails(imdbID);
+      console.log("Movie detail data:", data);
+      setSelectedMovie(data);
+    } catch (error) {
+      console.error("Failed to get movie detail:", error);
+    }
+  }
+
+  const handleCloseMovieDetail = () => {
+      setSelectedMovie(null);
+  };
+
   return (
     <div className="app">
       <SideBar />
@@ -67,7 +83,11 @@ function App() {
         setSearch={setSearch}
         handleSearch={handleSearch}
         loading={loading}
-        error={error}/>
+        error={error}
+        handleMovieClick={handleMovieClick}
+        selectedMovie={selectedMovie}
+        handleCloseMovieDetail={handleCloseMovieDetail}
+      />
 
     </div>
   )

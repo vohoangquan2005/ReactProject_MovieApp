@@ -1,7 +1,8 @@
 // HIỂN THỊ 1 PHIM
-function MovieCard({ movie }) {
+function MovieCard({ movie, handleMovieClick }) {
     return (
-        <article className="movie-card">
+        <article className="movie-card"
+                 onClick={() => handleMovieClick(movie.imdbID)}>
             <div className="movie-poster">
                 <img src={movie.Poster} alt={movie.Title}
                 />
