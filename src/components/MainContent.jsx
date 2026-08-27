@@ -12,6 +12,7 @@ function MainContent( {movies,
                       selectedMovie,
                       handleCloseMovieDetail,
                       favorites, handleFavorite,
+                      watchlist, handleWatchlist,
                       activePage} ) {
     return (
         <main className="main-content">
@@ -24,6 +25,10 @@ function MainContent( {movies,
                 <h2 className="page-title">❤️ My Favorites</h2>
             )}
 
+            {activePage === "watchlist" && (
+                <h2 className="page-title">🔖 My Watchlist</h2>
+            )}
+
             {loading && <p>Loading movies...</p>}
             {error && !loading && <p>{error}</p>}
 
@@ -31,7 +36,10 @@ function MainContent( {movies,
                 <p className="empty-message">
                     {activePage === "favorites"
                         ? "You haven't added any favorites yet."
-                        : "No movies found."}
+                        : activePage === "watchlist"
+                        ? "Your watchlist is empty."
+                        : "No movies found."
+                    }
                 </p>
             )}
             <div className="movie-area">
@@ -43,6 +51,8 @@ function MainContent( {movies,
                             handleMovieClick={handleMovieClick}
                             favorites={favorites}
                             handleFavorite={handleFavorite}
+                            watchlist={watchlist}
+                            handleWatchlist={handleWatchlist}
                         />
                     )}
                 </div>

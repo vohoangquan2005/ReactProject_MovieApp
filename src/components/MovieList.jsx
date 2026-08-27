@@ -2,7 +2,8 @@
 import MovieCard from "./MovieCard";
 
 function MovieList({ movies, handleMovieClick,
-                     favorites, handleFavorite}) {
+                     favorites, handleFavorite,
+                     watchlist, handleWatchlist}) {
     return (
         <div className="movie-list">
             {movies.map((movie) => (
@@ -12,6 +13,8 @@ function MovieList({ movies, handleMovieClick,
                     handleMovieClick={handleMovieClick}
                     favorites={favorites}
                     handleFavorite={handleFavorite}
+                    watchlist={watchlist}
+                    handleWatchlist={handleWatchlist}
                 />
             ))}
         </div>
