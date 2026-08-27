@@ -1,7 +1,8 @@
 // HIỂN THỊ NHIỀU PHIM
 import MovieCard from "./MovieCard";
 
-function MovieList({ movies, handleMovieClick }) {
+function MovieList({ movies, handleMovieClick,
+                     favorites, handleFavorite}) {
     return (
         <div className="movie-list">
             {movies.map((movie) => (
@@ -9,6 +10,8 @@ function MovieList({ movies, handleMovieClick }) {
                     key={movie.imdbID}
                     movie={movie}
                     handleMovieClick={handleMovieClick}
+                    favorites={favorites}
+                    handleFavorite={handleFavorite}
                 />
             ))}
         </div>

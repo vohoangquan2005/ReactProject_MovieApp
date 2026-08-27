@@ -10,7 +10,9 @@ function MainContent( {movies,
                       loading, error, 
                       handleMovieClick,
                       selectedMovie,
-                      handleCloseMovieDetail} ) {
+                      handleCloseMovieDetail,
+                      favorites, handleFavorite,
+                      activePage} ) {
     return (
         <main className="main-content">
             <Header 
@@ -18,9 +20,20 @@ function MainContent( {movies,
                 setSearch={setSearch}
                 handleSearch={handleSearch}/>
 
+            {activePage === "favorites" && (
+                <h2 className="page-title">❤️ My Favorites</h2>
+            )}
+
             {loading && <p>Loading movies...</p>}
             {error && !loading && <p>{error}</p>}
 
+            {!loading && !error && movies.length === 0 && (
+                <p className="empty-message">
+                    {activePage === "favorites"
+                        ? "You haven't added any favorites yet."
+                        : "No movies found."}
+                </p>
+            )}
             <div className="movie-area">
 
                 <div className="movie-list-area">
@@ -28,6 +41,8 @@ function MainContent( {movies,
                         <MovieList
                             movies={movies}
                             handleMovieClick={handleMovieClick}
+                            favorites={favorites}
+                            handleFavorite={handleFavorite}
                         />
                     )}
                 </div>

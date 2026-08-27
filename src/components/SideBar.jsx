@@ -1,5 +1,5 @@
 // SIDE BAR
-function SideBar() {
+function SideBar({activePage, handlePageChange}) {
     return (
         <>
             <aside className="sidebar">
@@ -9,32 +9,44 @@ function SideBar() {
                 </div>
                 {/* Điều hướng */}
                 <div className="navigation">
-                    <a href="#">
-                        <span>⌂</span>
-                        <span>Home</span>
+                    <a href="#"
+                       className={activePage === "home" ? "active" : ""}
+                       onClick={() => handlePageChange("home")}>
+                            <span>🏠</span>
+                            <span>Home</span>
                     </a>
-                    <a href="#">
-                        <span>♡</span>
-                        <span>Popular</span>
+                    <a href="#"
+                       className={activePage === "popular" ? "active" : ""}
+                       onClick={() => handlePageChange("popular")}>
+                            <span>🔥</span>
+                            <span>Popular</span>
                     </a>
-                    <a href="#">
-                        <span>☆</span>
-                        <span>Top Rated</span>
+                    <a href="#"
+                       className={activePage === "top-rated" ? "active" : ""}
+                       onClick={() => handlePageChange("top-rated")}>
+                            <span>⭐</span>
+                            <span>Top Rated</span>
                     </a>
-                    <a href="#">
-                        <span>▣</span>
-                        <span>Upcoming</span>
+                    <a href="#"
+                       className={activePage === "upcoming" ? "active" : ""}
+                       onClick={() => handlePageChange("upcoming")}>
+                            <span>📅</span>
+                            <span>Upcoming</span>
                     </a>
-                    <a href="#">
-                        <span>♡</span>
-                        <span>Favorites</span>
+                    <a href="#"
+                       className={activePage === "favorites" ? "active" : ""}
+                       onClick={() => handlePageChange("favorites")}>
+                            <span>❤️</span>
+                            <span>Favorites</span>
                     </a>
-                    <a href="#">
-                        <span>▢</span>
-                        <span>Watchlist</span>
+                    <a href="#"
+                       className={activePage === "watchlist" ? "active" : ""}
+                       onClick={() => handlePageChange("watchlist")}>
+                            <span>🔖</span>
+                            <span>Watchlist</span>
                     </a>
-                    
                 </div>
+                {/* Thể loại */}
                 <div className="genres">
                     <h2>GENRES</h2>
                     <a href="#">Action</a>

@@ -61,7 +61,7 @@ body {
   font-weight: bold;
   transform: translateY(2px);
 }
-.navigation a:active {
+.navigation a.active {
   background: #1c2030;
   color: #9b5cff;
 }
@@ -140,6 +140,17 @@ body {
   min-width: 0;
   padding: 24px 32px;
   background: #080b12;
+}
+.page-title {
+  margin: 20px 0;
+  font-size: 24px;
+  color: white;
+}
+.empty-message {
+  margin-top: 40px;
+  text-align: center;
+  color: #aeb4c2;
+  font-size: 16px;
 }
 /*=========================================================== */
 /*                           HEADER                           */
@@ -336,8 +347,28 @@ body {
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.7);
   color: white;
-  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
   cursor: pointer;
+}
+.favorite-btn.active {
+  color: rgb(255, 110, 134);
+  background: white;
+  animation: like-pop 0.25s ease;
+}
+
+@keyframes like-pop {
+  0% {
+      transform: scale(0.7);
+  }
+  50% {
+      transform: scale(1.25);
+  }
+  100% {
+      transform: scale(1.08);
+  }
 }
 .movie-info h3 {
   font-size: 14px;
@@ -359,24 +390,23 @@ body {
 /*                  TÙY CHỈNH TƯƠNG THÍCH                     */
 /*=========================================================== */
 @media (max-width: 1100px) {
-    .movie-list {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+  .movie-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
-
 /* Màn hình nhỏ */
 @media (max-width: 800px) {
-    .movie-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .movie-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* Điện thoại */
 @media (max-width: 500px) {
-    .movie-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-    }
+  .movie-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+  }
 }
 /*=========================================================== */
 /*                     RESPONSIVE SIDEBAR                     */
@@ -414,7 +444,6 @@ body {
       font-size: 32px;
   }
 }
-
 /* Điện thoại */
 @media (max-width: 500px) {
   .featured-movie {
@@ -525,8 +554,6 @@ body {
 .tooltip-wrapper:active {
   transform: scale(0.95);
 }
-
-
 /* Thẻ thông tin ẩn mặc định */
 .tooltip-text {
   visibility: hidden;
@@ -548,14 +575,12 @@ body {
   transition: opacity 0.3s;
   z-index: 100;
 }
-
 .tooltip-text::after {
   content: "";
   position: absolute;
   top: 100%; /* Đặt mũi tên dính vào đáy của khung thông báo */
   left: 50%;
   transform: translateX(-50%);
-  
   /* Tạo hình tam giác bằng border */
   border-width: 14px;
   border-style: solid;

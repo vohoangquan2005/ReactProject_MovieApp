@@ -20,7 +20,6 @@ function Header( {search, setSearch, handleSearch }) {
             </div>
             <button onClick={handleSearch}> 🔍 </button>
         </header>
-        
     );
 }
 export default Header;
