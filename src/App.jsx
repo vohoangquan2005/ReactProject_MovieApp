@@ -3,7 +3,8 @@ import './App.css'
 // API
 import { searchMovies, getMovieDetails, getPopularMovies, 
     getTopRatedMovies, getUpcomingMovies,
-    getMoviesByGenre, getNowPlayingMovies } from "./services/movieApi";
+    getMoviesByGenre, getNowPlayingMovies,
+    getMovieVideos } from "./services/movieApi";
 
 // Components
 import SideBar from "./components/SideBar.jsx"
@@ -16,6 +17,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [trailer, setTrailer] = useState(null);
 
   // Danh sách yêu thích
   const [favorites, setFavorites] = useState(() =>{
@@ -166,8 +168,6 @@ function App() {
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
   },[watchlist])
 
-
-
   let displayedMovies = movies;
   if (activePage === "favorites") {
     displayedMovies = favorites;
@@ -175,6 +175,26 @@ function App() {
   if (activePage === "watchlist") {
     displayedMovies = watchlist;
   }
+
+  // Xử lý trailer
+  const handleWatchTrailer = async (movieId) => {
+    try {
+      const data = await getMovieVideos(movieId);
+      const trailer = data.results.find((video) =>
+        video.site === "YouTube" &&
+        video.type === "Trailer" &&
+        video.official === true
+      );
+      setTrailer(trailer || null);
+    } catch (error) {
+      console.error("Failed to get trailer:", error);
+      setTrailer(null);
+    }
+  };
+  // Dừng xem trailer
+  const handleCloseTrailer = () => {
+    setTrailer(null);
+  };
 
   return (
     <div className="app">
@@ -201,6 +221,9 @@ function App() {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
+        handleWatchTrailer={handleWatchTrailer}
+        trailer={trailer}
+        handleCloseTrailer={handleCloseTrailer}
       />
 
     </div>

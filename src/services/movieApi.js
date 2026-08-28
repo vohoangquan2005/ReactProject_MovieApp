@@ -99,3 +99,14 @@ export async function getMoviesByGenre(genreId, page) {
     }
     return reponse.json();
 }
+
+// Trailer / Video của phim
+export async function getMovieVideos(movieId) {
+    const response = await fetch(
+        `${BASE_URL}/movie/${movieId}/videos?api_key=${API_TMDB_KEY}`
+    );
+    if (!response.ok) {
+        throw new Error("Failed to get movie videos");
+    }
+    return response.json();
+}

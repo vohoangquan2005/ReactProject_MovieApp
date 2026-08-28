@@ -4,6 +4,7 @@ import FeaturedMovie from "./FeaturedMovie";
 import MovieList from "./MovieList";
 import MovieDetail from "./MovieDetail";
 import MovieSkeleton from "./MovieSkeleton";
+import TrailerModal from "./TrailerModal";
 
 function MainContent( {movies, 
                       search, setSearch, handleSearch, 
@@ -15,15 +16,26 @@ function MainContent( {movies,
                       watchlist, handleWatchlist,
                       activePage,
                       currentPage, setCurrentPage,
-                      totalPages} ) {
+                      totalPages,
+                      handleWatchTrailer, trailer, handleCloseTrailer} ) {
     return (
         <main className="main-content">
-            <FeaturedMovie />
+            {activePage === "home" && (
+                <FeaturedMovie 
+                    movie={movies[0]} 
+                    handleWatchTrailer={handleWatchTrailer}
+                />
+            )}
 
             <Header 
                 search={search} 
                 setSearch={setSearch}
                 handleSearch={handleSearch}/>
+                
+            <TrailerModal
+                trailer={trailer}
+                onClose={handleCloseTrailer}
+            />
 
             {activePage === "favorites" && (
                 <h2 className="page-title">❤️ My Favorites</h2>

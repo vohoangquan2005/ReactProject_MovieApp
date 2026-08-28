@@ -700,3 +700,71 @@ body {
       background-position: -200% 0;
   }
 }
+/*=========================================================== */
+/*                        TRAILER MODEL                       */
+/*=========================================================== */
+.trailer-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  padding: 20px;
+  box-sizing: border-box;
+}
+/* Khung chứa trailer */
+.trailer-modal-content {
+  position: relative;
+  width: min(900px, 90vw);
+  aspect-ratio: 16 / 9;
+  background: #0d111b;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+/* Video */
+.trailer-modal-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+/* Nút đóng */
+.trailer-modal-close {
+  position: absolute;
+  top: -45px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #9b5cff;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+.trailer-modal-close:hover {
+  background: white;
+  color: #111;
+  transform: scale(1.05);
+}
+@media (max-width: 768px) {
+  .trailer-modal {
+    padding: 15px;
+  }
+  .trailer-modal-content {
+    width: 95vw;
+  }
+  .trailer-modal-close {
+    top: -42px;
+    right: 0;
+  }
+}
