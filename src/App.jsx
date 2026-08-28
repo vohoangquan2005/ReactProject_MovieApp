@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import './App.css'
 // API
 import { searchMovies, getMovieDetails, getPopularMovies, 
-    getTopRatedMovies, getUpcomingMovies } from "./services/movieApi";
+    getTopRatedMovies, getUpcomingMovies,
+    getMoviesByGenre, getNowPlayingMovies } from "./services/movieApi";
 
 // Components
 import SideBar from "./components/SideBar.jsx"
@@ -36,20 +37,30 @@ function App() {
     setError("");
     try {
       let data;
-      if (page === "popular") {
-          data = await getPopularMovies();
-      } else if (page === "top-rated") {
-          data = await getTopRatedMovies();
-      } else if (page === "upcoming") {
-          data = await getUpcomingMovies();
-      } else {
-          data = await searchMovies("batman");
+      if (page === "home") {
+      data = await getNowPlayingMovies();
       }
+      else if (page === "popular") {
+          data = await getPopularMovies();
+      } 
+      else if (page === "top-rated") {
+        data = await getTopRatedMovies();
+      } 
+      else if (page === "upcoming") {
+        data = await getUpcomingMovies();
+      } 
+      else if (page.startsWith("genre-")) {
+        // Loại bỏ genre- chỉ giữ lại id của phim
+        const genreId = page.replace("genre-", "");
+        data = await getMoviesByGenre(genreId);
+      }
+
       if (data.results) {
           setMovies(data.results);
-      } else {
-          setMovies([]);
-          setError("No movies found!");
+      } 
+      else {
+        setMovies([]);
+        setError("No movies found!");
       }
     } catch (error) {
       console.error(error);
@@ -76,6 +87,7 @@ function App() {
       const data = await searchMovies(search);
       if (data.results && data.results.length > 0) {
         setMovies(data.results);
+        console.log(data);
       } 
       else {
         setMovies([]);

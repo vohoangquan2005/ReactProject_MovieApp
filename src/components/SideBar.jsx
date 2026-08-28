@@ -1,5 +1,18 @@
 // SIDE BAR
 function SideBar({activePage, handlePageChange}) {
+    const genres = [
+                { id: 28, name: "Action" },
+                { id: 12, name: "Adventure" },
+                { id: 16, name: "Animation" },
+                { id: 35, name: "Comedy" },
+                { id: 80, name: "Crime" },
+                { id: 18, name: "Drama" },
+                { id: 14, name: "Fantasy" },
+                { id: 27, name: "Horror" },
+                { id: 10749, name: "Romance" },
+                { id: 878, name: "Sci-Fi" },
+                { id: 53, name: "Thriller" }
+    ];
     return (
         <>
             <aside className="sidebar">
@@ -73,17 +86,15 @@ function SideBar({activePage, handlePageChange}) {
                 {/* Thể loại */}
                 <div className="genres">
                     <h2>GENRES</h2>
-                    <a href="#">Action</a>
-                    <a href="#">Adventure</a>
-                    <a href="#">Animation</a>
-                    <a href="#">Comedy</a>
-                    <a href="#">Crime</a>
-                    <a href="#">Drama</a>
-                    <a href="#">Fantasy</a>
-                    <a href="#">Horror</a>
-                    <a href="#">Romance</a>
-                    <a href="#">Sci-Fi</a>
-                    <a href="#">Thriller</a>
+                    {genres.map((genre) => (
+                        <a href="#"
+                            key={genre.id}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handlePageChange(`genre-${genre.id}`)}
+                            }
+                        > {genre.name}</a>
+                    ))}
                 </div>
                 <div className="theme-toggle">
                     <span>◐ Dark Mode</span>

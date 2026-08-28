@@ -15,7 +15,11 @@ body {
 /*                        SIDE BAR                            */
 /*=========================================================== */
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 220px;
+  height: 100vh;
   background: #0d111b;
   border-right: 1px solid #202533;
   padding: 0 16px;
@@ -137,6 +141,7 @@ body {
 /*=========================================================== */
 .main-content {
   flex: 1;
+  margin-left: 220px;
   min-width: 0;
   padding: 24px 32px;
   background: #080b12;

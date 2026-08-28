@@ -65,6 +65,7 @@ export async function getUpcomingMovies() {
     }
     return response.json();
 }
+
 // Chi tiết phim
 export async function getMovieDetails(movieId) {
     const response = await fetch(
@@ -73,5 +74,29 @@ export async function getMovieDetails(movieId) {
     if (!response.ok) {
         throw new Error("Failed to get movie details");
     }
+    return response.json();
+}
+
+// Thể loại phim
+export async function getMoviesByGenre(genreId) {
+    const reponse = await fetch(
+        `${BASE_URL}/discover/movie?api_key=${API_TMDB_KEY}&with_genres=${genreId}`
+    );
+    if (!reponse.ok){
+        throw new Error("Failed to get movies by genre");
+    }
+    return reponse.json();
+}
+
+// Phim đang chiếu - Home
+export async function getNowPlayingMovies() {
+    const response = await fetch(
+        `${BASE_URL}/movie/now_playing?api_key=${API_TMDB_KEY}`
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to get now playing movies");
+    }
+
     return response.json();
 }
