@@ -2,32 +2,42 @@
 function MovieCard({ movie, handleMovieClick,
                      favorites, handleFavorite,
                      watchlist, handleWatchlist }) {
-    const isFavorite = favorites.some((item) => item.imdbID === movie.imdbID);
+    const isFavorite = favorites.some((item) => item.id === movie.id);
     const handleFavoriteClick = (e)=>{
         e.stopPropagation();
         handleFavorite(movie);
     }
 
-    const isInWatchlist = watchlist.some((item) => item.imdbID === movie.imdbID);
+    const isWatchlist = watchlist.some((item) => item.id === movie.id);
     const handleWatchlistClick = (e)=>{
         e.stopPropagation();
         handleWatchlist(movie);
     }
+    // TMDB không trả sẵn Poster URL
+    const posterUrl = movie.poster_path
+        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+        : "/no-poster.jpg";
+
+    // Lấy năm từ release_date
+    const year = movie.release_date
+        ? movie.release_date.slice(0, 4)
+        : "N/A";
+
     return (
         <article className="movie-card"
-                 onClick={() => handleMovieClick(movie.imdbID)}>
+                 onClick={() => handleMovieClick(movie.id)}>
             <div className="movie-poster">
-                <img src={movie.Poster} alt={movie.Title} />
+                <img src={posterUrl} alt={movie.title} />
                 <button className={`favorite-btn ${isFavorite ? "active" : ""}`}
                         onClick={handleFavoriteClick}> ♥ </button>
-                <button className={`watchlist-btn ${isInWatchlist ? "active" : ""}`}
+                <button className={`watchlist-btn ${isWatchlist ? "active" : ""}`}
                         onClick={handleWatchlistClick}> ▼ </button>
             </div>
             <div className="movie-info">
-                <h3>{movie.Title}</h3>
+                <h3>{movie.title}</h3>
                 <div className="movie-meta">
-                    <span>{movie.Year}</span>
-                    <span>{movie.Type}</span>
+                    <span>{year}</span>
+                    <span>⭐ {movie.vote_average?.toFixed(1)}</span>
                 </div>
             </div>
         </article>

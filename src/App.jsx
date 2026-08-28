@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-
-import { searchMovies, getMovieDetails } from "./services/movieApi";
+// API
+import { searchMovies, getMovieDetails, getPopularMovies, 
+    getTopRatedMovies, getUpcomingMovies } from "./services/movieApi";
 
 // Components
 import SideBar from "./components/SideBar.jsx"
@@ -13,84 +14,113 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
+
   // Danh sách yêu thích
   const [favorites, setFavorites] = useState(() =>{
     const savedFavorites = localStorage.getItem("favorites");
     return savedFavorites ? JSON.parse(savedFavorites) : [];
-  })
-  // Danh sách xem sau
+  });
+
+  // Danh sách xem
   const [watchlist, setWatchlist] = useState(() =>{
     const savedWatchlist = localStorage.getItem("watchlist");
     return savedWatchlist ? JSON.parse(savedWatchlist) : [];
   })
-  const [activePage, setActivePage] = useState("home"); // Cho biết đang xem trang nào
-  const pageQueries = {   // Biến quy định mỗi page) tìm gì? (Dữ liệu cứng)
-    home: "batman",
-    popular: "avengers",
-    "top-rated": "godfather",
-    upcoming: "superman"
-  };
+
+  // Trang hiện tại
+  const [activePage, setActivePage] = useState("home");
+
   // Loading movies
-  const loadMovies = async (query) => {
+  const loadMovies = async (page) => {
     setLoading(true);
     setError("");
     try {
-      const data = await searchMovies(query);
-
-      if (data.Response === "True") {
-        setMovies(data.Search);
+      let data;
+      if (page === "popular") {
+          data = await getPopularMovies();
+      } else if (page === "top-rated") {
+          data = await getTopRatedMovies();
+      } else if (page === "upcoming") {
+          data = await getUpcomingMovies();
       } else {
-        setMovies([]);
-        setError("No movies found!");
+          data = await searchMovies("batman");
+      }
+      if (data.results) {
+          setMovies(data.results);
+      } else {
+          setMovies([]);
+          setError("No movies found!");
       }
     } catch (error) {
+      console.error(error);
       setMovies([]);
       setError("Something went wrong. Please try again!");
     } finally {
       setLoading(false);
     }
-  }
-
+  };
+  // load movies khi thay đổi page
   useEffect(() => {
-    if (activePage === "favorites") return;
-    const query = pageQueries[activePage];
-    if (query){
-      loadMovies(query);
+    if (activePage === "favorites" || activePage === "watchlist") {
+        return;
     }
+    loadMovies(activePage);
   }, [activePage]);
+
   // Xử lý tìm kiếm
   const handleSearch =async () =>{
     if (!search.trim()) return;
-    await loadMovies(search);
-  }
-  // Click vào Movie Card
-  const handleMovieClick = async (imdbID) => {
-    console.log("Clicked imdbID:", imdbID);
+    setLoading(true);
+    setError("");
     try {
-      const data = await getMovieDetails(imdbID);
-      console.log("Movie detail data:", data);
-      setSelectedMovie(data);
+      const data = await searchMovies(search);
+      if (data.results && data.results.length > 0) {
+        setMovies(data.results);
+      } 
+      else {
+        setMovies([]);
+        setError("No movies found!");
+      }
     } catch (error) {
-      console.error("Failed to get movie detail:", error);
+      console.error(error);
+      setMovies([]);
+      setError("Something went wrong. Please try again!");
+    } finally {
+      setLoading(false);
     }
-  }
+    }
+  // Click vào Movie Card
+  const handleMovieClick = async (movieId) => {
+    try {
+        const data = await getMovieDetails(movieId);
+        setSelectedMovie(data);
+    } catch (error) {
+        console.error("Failed to get movie detail:", error);
+    }
+  };
+
+  // Đóng MovieDetail
+  const handleCloseMovieDetail = () => {
+      setSelectedMovie(null);
+  };
 
   // Xử lý Favorite
   const handleFavorite = (movie) =>{
     setFavorites((pre) =>{
-      const isFavorite = pre.some((item) => item.imdbID === movie.imdbID)
+      const isFavorite = pre.some((item) => item.id === movie.id)
       if (isFavorite){
-        return pre.filter((item) => item.imdbID !== movie.imdbID)
+        return pre.filter((item) => item.id !== movie.id)
       }
       return [...pre, movie]
     })
   }
+
   // Xử lý Watchlist
   const handleWatchlist = (movie) =>{
     setWatchlist((pre) =>{
-      const isWatchlist = pre.some((item) => item.imdbID === movie.imdbID)
+      const isWatchlist = pre.some((item) => item.id === movie.id)
       if (isWatchlist){
-        return pre.filter((item) => item.imdbID !== movie.imdbID)
+        return pre.filter((item) => item.id !== movie.id)
       }
       return [...pre, movie]
     })
@@ -104,14 +134,10 @@ function App() {
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
   },[watchlist])
 
-  // Đóng MovieDetail
-  const handleCloseMovieDetail = () => {
-      setSelectedMovie(null);
-  };
-
   // Xử lý SideBar
   const handlePageChange = (page)=>{
     setActivePage(page);
+    setSelectedMovie(null);
   }
 
   let displayedMovies = movies;

@@ -11,37 +11,61 @@ function SideBar({activePage, handlePageChange}) {
                 <div className="navigation">
                     <a href="#"
                        className={activePage === "home" ? "active" : ""}
-                       onClick={() => handlePageChange("home")}>
+                       onClick={(e) => {
+                                    e.preventDefault();
+                                    handlePageChange("home");
+                                }}
+                    >
                             <span>🏠</span>
                             <span>Home</span>
                     </a>
                     <a href="#"
                        className={activePage === "popular" ? "active" : ""}
-                       onClick={() => handlePageChange("popular")}>
+                       onClick={(e) => {
+                                    e.preventDefault();
+                                    handlePageChange("popular");
+                                }}
+                    >
                             <span>🔥</span>
                             <span>Popular</span>
                     </a>
                     <a href="#"
                        className={activePage === "top-rated" ? "active" : ""}
-                       onClick={() => handlePageChange("top-rated")}>
+                       onClick={(e) => {
+                                    e.preventDefault();
+                                    handlePageChange("top-rated");
+                                }}
+                    >
                             <span>⭐</span>
                             <span>Top Rated</span>
                     </a>
                     <a href="#"
                        className={activePage === "upcoming" ? "active" : ""}
-                       onClick={() => handlePageChange("upcoming")}>
+                       onClick={(e) => {
+                                    e.preventDefault();
+                                    handlePageChange("upcoming");
+                                }}
+                    >
                             <span>📅</span>
                             <span>Upcoming</span>
                     </a>
                     <a href="#"
                        className={activePage === "favorites" ? "active" : ""}
-                       onClick={() => handlePageChange("favorites")}>
+                       onClick={(e) => {
+                                    e.preventDefault();
+                                    handlePageChange("favorites");
+                                }}
+                    >
                             <span>❤️</span>
                             <span>Favorites</span>
                     </a>
                     <a href="#"
                        className={activePage === "watchlist" ? "active" : ""}
-                       onClick={() => handlePageChange("watchlist")}>
+                       onClick={(e) => {
+                                    e.preventDefault();
+                                    handlePageChange("watchlist");
+                                }}
+                    >
                             <span>🔖</span>
                             <span>Watchlist</span>
                     </a>

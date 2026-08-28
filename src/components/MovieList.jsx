@@ -8,7 +8,7 @@ function MovieList({ movies, handleMovieClick,
         <div className="movie-list">
             {movies.map((movie) => (
                 <MovieCard
-                    key={movie.imdbID}
+                    key={movie.id}
                     movie={movie}
                     handleMovieClick={handleMovieClick}
                     favorites={favorites}
