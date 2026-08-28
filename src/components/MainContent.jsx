@@ -1,9 +1,9 @@
 // MAIN CONTENT
 import Header from "./Header";
 import FeaturedMovie from "./FeaturedMovie";
-import MovieSection from "./MovieSection";
 import MovieList from "./MovieList";
 import MovieDetail from "./MovieDetail";
+import MovieSkeleton from "./MovieSkeleton";
 
 function MainContent( {movies, 
                       search, setSearch, handleSearch, 
@@ -13,9 +13,13 @@ function MainContent( {movies,
                       handleCloseMovieDetail,
                       favorites, handleFavorite,
                       watchlist, handleWatchlist,
-                      activePage} ) {
+                      activePage,
+                      currentPage, setCurrentPage,
+                      totalPages} ) {
     return (
         <main className="main-content">
+            <FeaturedMovie />
+
             <Header 
                 search={search} 
                 setSearch={setSearch}
@@ -45,7 +49,13 @@ function MainContent( {movies,
             <div className="movie-area">
 
                 <div className="movie-list-area">
-                    {!loading && !error && (
+                    {loading ? (
+                        <div className="movie-list">
+                            {Array.from({ length: 8 }).map((_, index) => (
+                                <MovieSkeleton key={index} />
+                            ))}
+                        </div>
+                    ) : !error ? (
                         <MovieList
                             movies={movies}
                             handleMovieClick={handleMovieClick}
@@ -54,12 +64,24 @@ function MainContent( {movies,
                             watchlist={watchlist}
                             handleWatchlist={handleWatchlist}
                         />
-                    )}
+                    ) : null}
                 </div>
 
                 <MovieDetail 
                     movie={selectedMovie} 
                     handleCloseMovieDetail={handleCloseMovieDetail}/>
+            </div>
+
+            <div className="pagination">
+                <button
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage((prev) => prev - 1)}
+                > ← Previous </button>
+                <span>Page {currentPage}</span>
+                <button
+                    disabled={currentPage >= totalPages}
+                    onClick={() => setCurrentPage((prev) => prev + 1)}
+                > Next → </button>
             </div>
 
             <div className="tooltip-wrapper">

@@ -12,6 +12,7 @@ import MainContent from "./components/MainContent";
 function App() {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -28,8 +29,10 @@ function App() {
     return savedWatchlist ? JSON.parse(savedWatchlist) : [];
   })
 
-  // Trang hiện tại
+  // Page 
   const [activePage, setActivePage] = useState("home");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   // Loading movies
   const loadMovies = async (page) => {
@@ -37,29 +40,34 @@ function App() {
     setError("");
     try {
       let data;
-      if (page === "home") {
-      data = await getNowPlayingMovies();
+      if (isSearching) {
+        data =await searchMovies(search, currentPage);
+      }
+      else if (page === "home") {
+        data = await getNowPlayingMovies(currentPage);
       }
       else if (page === "popular") {
-          data = await getPopularMovies();
+        data = await getPopularMovies(currentPage);
       } 
       else if (page === "top-rated") {
-        data = await getTopRatedMovies();
+        data = await getTopRatedMovies(currentPage);
       } 
       else if (page === "upcoming") {
-        data = await getUpcomingMovies();
+        data = await getUpcomingMovies(currentPage);
       } 
       else if (page.startsWith("genre-")) {
         // Loại bỏ genre- chỉ giữ lại id của phim
         const genreId = page.replace("genre-", "");
-        data = await getMoviesByGenre(genreId);
+        data = await getMoviesByGenre(genreId, currentPage);
       }
 
       if (data.results) {
-          setMovies(data.results);
+        setMovies(data.results);
+        setTotalPages(data.total_pages);
       } 
       else {
         setMovies([]);
+        setTotalPages(1);
         setError("No movies found!");
       }
     } catch (error) {
@@ -76,21 +84,33 @@ function App() {
         return;
     }
     loadMovies(activePage);
-  }, [activePage]);
+  }, [activePage, currentPage, isSearching]);
+
+  // Đổi trang
+  const handlePageChange = (page)=>{
+    setActivePage(page);
+    setCurrentPage(1);
+    setSelectedMovie(null);
+    setIsSearching(false);
+  }
 
   // Xử lý tìm kiếm
   const handleSearch =async () =>{
     if (!search.trim()) return;
+    setIsSearching(true);
+    setCurrentPage(1);
     setLoading(true);
     setError("");
     try {
-      const data = await searchMovies(search);
+      const data = await searchMovies(search, 1);
       if (data.results && data.results.length > 0) {
         setMovies(data.results);
+        setTotalPages(data.total_pages);
         console.log(data);
       } 
       else {
         setMovies([]);
+        setTotalPages(1);
         setError("No movies found!");
       }
     } catch (error) {
@@ -100,7 +120,7 @@ function App() {
     } finally {
       setLoading(false);
     }
-    }
+  }
   // Click vào Movie Card
   const handleMovieClick = async (movieId) => {
     try {
@@ -146,11 +166,7 @@ function App() {
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
   },[watchlist])
 
-  // Xử lý SideBar
-  const handlePageChange = (page)=>{
-    setActivePage(page);
-    setSelectedMovie(null);
-  }
+
 
   let displayedMovies = movies;
   if (activePage === "favorites") {
@@ -182,6 +198,9 @@ function App() {
         watchlist={watchlist}
         handleWatchlist={handleWatchlist}
         activePage={activePage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
       />
 
     </div>
