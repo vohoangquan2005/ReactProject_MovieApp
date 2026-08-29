@@ -1,31 +1,65 @@
+:root {
+  --bg-primary: #0d111b;
+  --bg-secondary: #151a25;
+  --bg-card: #111722;
+  --border: #242b38;
+  --text-primary: white;
+  --text-secondary: #7f8797;
+}
+.app.dark {
+  --bg-primary: #0d111b;
+  --bg-secondary: #151a25;
+  --bg-card: #111722;
+  --border: #242b38;
+  --text-primary: white;
+  --text-secondary: #7f8797;
+}
+.app.light {
+  --bg-primary: #f4f5f8;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --border: #dfe3eb;
+  --text-primary: #171a21;
+  --text-secondary: #687080;
+}
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 body {
-  background: #080b12;
-  color: white;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 .app {
   display: flex;
   min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition:
+    background 0.5s ease,
+    color 0.3s ease;
 }
+
 /*=========================================================== */
 /*                        SIDE BAR                            */
 /*=========================================================== */
 .sidebar {
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
   position: fixed;
   top: 0;
   left: 0;
   width: 220px;
   height: 100vh;
-  background: #0d111b;
   border-right: 1px solid #202533;
   padding: 0 16px;
   /* Các thành phần được sắp xếp theo chiều dọc */
   display: flex;
   flex-direction: column;
+  transition:
+    background 0.5s ease,
+    border-color 0.5s ease;
 }
 .logo {
   display: flex;
@@ -39,7 +73,7 @@ body {
 }
 .logo h1 {
   font-size: 24px;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 .logo h1>span {
   color: #9b5cff
@@ -54,19 +88,23 @@ body {
   align-items: center;
   gap: 14px;
   padding: 12px;
-  color: #aeb4c2;
+  color: var(--text-muted);
   text-decoration: none;
   border-radius: 8px;
   font-size: 20px;
+  transition:
+    background 0.5s ease,
+    color 0.5s ease,
+    transform 0.5s ease;
 }
 .navigation a:hover {
-  background: #1c2030;
-  color: white;
+  background: var(--hover-bg);
+  color: var(--text-primary);
   font-weight: bold;
   transform: translateY(2px);
 }
 .navigation a.active {
-  background: #1c2030;
+  background: var(--hover-bg);
   color: #9b5cff;
 }
 .genres {
@@ -83,27 +121,27 @@ body {
   font-size: 20px;
 }
 .genres a {
-  color: #aeb4c2;
+  color: var(--text-muted);
   text-decoration: none;
   font-size: 18px;
   margin-top: 8px;
 }
 .genres a:hover {
-  color: white;
+  color: var(--text-primary);
   font-weight: bold;
 }
 .theme-toggle {
   margin-top: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 10px 4px;
-  color: #aeb4c2;
+  color: var(--text-muted);
   font-size: 20px;
-  width: 190px;
+  width: 200px;
   position: fixed;
   bottom: 20px;
-  left: 20px;
+  left: 12px;
 }
 /* Chỉnh checkbox thành toggle */
 .theme-toggle input {
@@ -112,10 +150,9 @@ body {
   height: 24px;
   background: #252b38;
   border-radius: 20px;
-  border: 1px solid #ffffff;
   position: relative;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.5s ease;
 }
 /* Tạo nút tròn bên trong */
 .theme-toggle input::before {
@@ -123,11 +160,11 @@ body {
   position: absolute;
   width: 20px;
   height: 20px;
-  top: 0.5px;
+  top: 2px;
   left: 1px;
   background: #aeb4c2;
   border-radius: 50%;
-  transition: 0.3s;
+  transition: background 0.5s ease;
 }
 .theme-toggle input:checked {
   background: #9b5cff;
@@ -140,21 +177,22 @@ body {
 /*                        MAIN CONTENT                        */
 /*=========================================================== */
 .main-content {
+  background: var(--bg-primary);
+  color: var(--text-primary);
   flex: 1;
   margin-left: 220px;
   min-width: 0;
   padding: 24px 32px;
-  background: #080b12;
 }
 .page-title {
   margin: 20px 0;
   font-size: 24px;
-  color: white;
+  color: var(--text-primary);
 }
 .empty-message {
   margin-top: 40px;
   text-align: center;
-  color: #aeb4c2;
+  color: var(--text-muted);
   font-size: 16px;
 }
 .pagination {
@@ -166,13 +204,13 @@ body {
 }
 .pagination button {
   padding: 10px 18px;
-  border: 1px solid #2a3040;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: #151a25;
-  color: white;
+  background: var(--button-bg);
+  color: var(--button-text);
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.5s ease;
 }
 .pagination button:hover:not(:disabled) {
   background: #9b5cff;
@@ -185,7 +223,7 @@ body {
 .pagination span {
   min-width: 80px;
   text-align: center;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 14px;
   font-weight: 500;
 }
@@ -199,11 +237,12 @@ body {
   margin-bottom: 32px;
 }
 .header-title h2 {
+  color: var(--text-secondary);
   font-size: 28px;
   margin-bottom: 6px;
 }
 .header-title p {
-  color: #7f8797;
+  color: var(--text-secondary);
   font-size: 16px;
 }
 /* Search bar */
@@ -214,11 +253,14 @@ body {
   align-items: center;
   gap: 10px;
   padding: 10px 16px;
-  background: #111722;
-  border: 1px solid #242b38;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
   border-radius: 10px;
   margin-left: 24px;
   margin-right: 20px;
+  transition:
+    background 0.5s ease,
+    border-color 0.5s ease;
 }
 .search-bar span {
   color: #7f8797;
@@ -229,20 +271,36 @@ body {
   border: none;
   outline: none;
   background: transparent;
-  color: white;
+  color: var(--text-primary);
   font-size: 20px;
 }
-.header button {
+.clear-search {
+  margin-left: auto;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #7f8797;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 6px;
+  transition: 0.5s ease;
+}
+.btn-search {
   width: 70px;
   height: 60px;
   margin-right: 12px;
-  background: white;
+  background: var(--button-bg);
+  color: var(--button-text);
   font-size: 32px;
   border-radius: 10px;
   border: none;
   outline: none;
+  transition:
+    background 0.5s ease,
+    color 0.5s ease,
+    transform 0.5s ease;
 }
-.header button:hover {
+.btn-search:hover {
   transform: scale(1.05);
 }
 .header button:active {
@@ -311,7 +369,7 @@ body {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.5s;
 }
 .watch-button:hover {
   transform: translateY(-2px);
@@ -354,9 +412,15 @@ body {
 /*                        MOVIE CARD                          */
 /*=========================================================== */
 .movie-card {
+  background: var(--bg-card);
+  border-color: var(--border);
+  border: 1px solid var(--border);
   min-width: 0;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition:
+    transform 0.5s ease,
+    background 0.5s ease,
+    border-color 0.5s ease;
 }
 .movie-card:hover {
   transform: translateY(-5px);
@@ -422,7 +486,7 @@ body {
   padding: 0;
   font-size: 25px;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: 0.5s ease;
 }
 .watchlist-btn:hover {
   transform: scale(1.1);
@@ -433,91 +497,22 @@ body {
   transform: scale(1.08);
 }
 .movie-info h3 {
+  color: var(--text-secondary);
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 6px;
+  
 }
 .movie-meta {
+  color: var(--text-secondary);
   display: flex;
   gap: 8px;
   font-size: 13px;
-  color: #8b93a7;
 }
 .movie-meta span:first-child {
-  color: #d6d9e0;
-}
-/*=========================================================== */
-/*                  TÙY CHỈNH TƯƠNG THÍCH                     */
-/*=========================================================== */
-@media (max-width: 1100px) {
-  .movie-list {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-/* Màn hình nhỏ */
-@media (max-width: 800px) {
-  .movie-list {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* Điện thoại */
-@media (max-width: 500px) {
-  .movie-list {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-  }
-}
-/*=========================================================== */
-/*                     RESPONSIVE SIDEBAR                     */
-/*=========================================================== */
-@media (max-width: 800px) {
-  .sidebar {
-      width: 180px;
-  }
-  .main-content {
-      padding: 20px;
-  }
-}
-/*=========================================================== */
-/*                     RESPONSIVE HEADER                      */
-/*=========================================================== */
-@media (max-width: 600px) {
-  .header {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 16px;
-  }
-  .search-bar {
-      width: 100%;
-  }
-}
-/*=========================================================== */
-/*                 RESPONSIVE FEATURED MOVIE                  */
-/*=========================================================== */
-@media (max-width: 700px) {
-  .featured-content {
-      width: 80%;
-      padding: 32px;
-  }
-  .featured-content h1 {
-      font-size: 32px;
-  }
-}
-/* Điện thoại */
-@media (max-width: 500px) {
-  .featured-movie {
-      min-height: 320px;
-  }
-  .featured-content {
-      width: 100%;
-      padding: 24px;
-  }
-  .featured-content h1 {
-      font-size: 28px;
-  }
+  color: var(--text-secondary);
 }
 /*=========================================================== */
 /*                       MOVIE AREA                           */
@@ -535,14 +530,15 @@ body {
 /*                        MOVIE DETAIL                        */
 /*=========================================================== */
 .movie-detail {
+  background: var(--bg-secondary);
+  border-color: var(--border);
+  color: var(--text-primary);
   position: relative;
   width: 320px;
   min-width: 320px;
   padding: 20px;
   box-sizing: border-box;
-  background: #151a25;
   border-left: 1px solid #202533;
-  color: white;
   overflow-y: auto;
 }
 .movie-detail-close {
@@ -579,6 +575,105 @@ body {
 .movie-detail-info p {
   margin: 0 0 12px;
   line-height: 1.5;
+}
+.movie-detail-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: #b8bfcc;
+  font-size: 14px;
+}
+.movie-detail-meta strong {
+  color: var(--text-primary);
+}
+.movie-detail-genres {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 18px;
+  font-size: 13px;
+}
+.movie-detail-genres strong {
+  width: 100%;
+  color: white;
+  font-size: 14px;
+}
+.movie-detail-genres span {
+  padding: 5px 10px;
+  background: var(--genre-bg);
+  border: 1px solid var(--genre-border);
+  border-radius: 20px;
+  color: var(--text-muted);
+  font-size: 12px;
+  transition:
+    background 0.5s ease,
+    border-color 0.5s ease,
+    color 0.5s ease;
+}
+.movie-detail-genres span:hover {
+  background: #9b5cff;
+  border-color: #9b5cff;
+  color: white;
+}
+.movie-detail-overview {
+  margin: 0 0 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.movie-detail-overview strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+  font-size: 15px;
+}
+.movie-detail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.movie-detail-actions button {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.5s ease,
+    border-color 0.5s ease,
+    color 0.5s ease,
+    transform 0.5s ease;
+}
+.movie-detail-actions button:hover {
+  background: var(--hover-bg);
+  border-color: #9b5cff;
+}
+.movie-detail-actions button:first-child.active {
+  background: rgba(255, 70, 100, 0.15);
+  border-color: #ff4664;
+  color: #ff6680;
+}
+.movie-detail-actions button:nth-child(2).active {
+  background: rgba(155, 92, 255, 0.15);
+  border-color: #9b5cff;
+  color: #b98aff;
+}
+.movie-detail-actions .detail-trailer-btn {
+  background: #9b5cff;
+  border-color: #9b5cff;
+  font-weight: 600;
+}
+.movie-detail-actions .detail-trailer-btn:hover {
+  background: #8145e8;
+  border-color: #8145e8;
+  transform: translateY(-1px);
 }
 /*=========================================================== */
 /*             NÚT VHQ (LÀM TÀO LAO Á ĐỪNG CARE)              */
@@ -637,7 +732,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   /* Hiệu ứng hiện mượt mà */
-  transition: opacity 0.3s;
+  transition: opacity 0.5s;
   z-index: 100;
 }
 .tooltip-text::after {
@@ -668,10 +763,10 @@ body {
   aspect-ratio: 2 / 3;
   border-radius: 10px;
   background: linear-gradient(
-      90deg,
-      #202533 25%,
-      #2a3040 50%,
-      #202533 75%
+    90deg,
+    var(--border) 25%,
+    var(--hover-bg) 50%,
+    var(--border) 75%
   );
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
@@ -683,14 +778,14 @@ body {
   width: 80%;
   height: 18px;
   border-radius: 4px;
-  background: #202533;
+  background: var(--border);
   margin-bottom: 8px;
 }
 .skeleton-meta {
   width: 50%;
   height: 14px;
   border-radius: 4px;
-  background: #202533;
+  background: var(--border);
 }
 @keyframes skeleton-loading {
   0% {
@@ -710,7 +805,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--bg-secondary);
   backdrop-filter: blur(4px);
   padding: 20px;
   box-sizing: border-box;
@@ -749,7 +844,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.2s;
+  transition: 0.5s;
 }
 .trailer-modal-close:hover {
   background: white;
@@ -767,4 +862,337 @@ body {
     top: -42px;
     right: 0;
   }
+}
+/*=========================================================== */
+/*                     RESPONSIVE                            */
+/*=========================================================== */
+
+/* ======================= TABLET =========================== */
+@media (max-width: 900px) {
+/* ---------- SIDEBAR ---------- */
+.sidebar {
+  width: 180px;
+  padding: 0 12px;
+}
+.logo h1 {
+  font-size: 20px;
+}
+.logo span {
+  font-size: 20px;
+}
+.navigation a {
+  font-size: 16px;
+  gap: 10px;
+  padding: 10px;
+}
+.genres {
+  margin-top: 24px;
+  gap: 6px;
+}
+.genres h2 {
+  font-size: 16px;
+}
+.genres a {
+  font-size: 15px;
+  margin-top: 5px;
+}
+.theme-toggle {
+  width: 156px;
+  left: 12px;
+  font-size: 15px;
+}
+/* ---------- MAIN CONTENT ---------- */
+.main-content {
+  margin-left: 180px;
+  padding: 20px;
+}
+/* ---------- HEADER ---------- */
+.header {
+  gap: 12px;
+}
+.header-title h2 {
+  font-size: 22px;
+}
+.header-title p {
+  font-size: 14px;
+}
+.search-bar {
+  margin-left: 10px;
+  margin-right: 5px;
+}
+.search-bar input {
+  font-size: 16px;
+}
+.btn-search {
+  width: 55px;
+  height: 52px;
+  font-size: 24px;
+  margin-right: 0;
+}
+/* ---------- FEATURED MOVIE ---------- */
+.featured-content {
+  width: 65%;
+  padding: 32px;
+}
+.featured-content h1 {
+  font-size: 34px;
+}
+/* ---------- MOVIE LIST ---------- */
+.movie-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+/* ---------- MOVIE DETAIL ---------- */
+.movie-detail {
+  width: 280px;
+  min-width: 280px;
+  padding: 16px;
+}
+}
+/* ======================== MOBILE ========================== */
+@media (max-width: 600px) {
+/* ---------- SIDEBAR ---------- */
+.sidebar {
+  width: 70px;
+  padding: 0 8px;
+}
+.logo {
+  justify-content: center;
+}
+.logo h1 {
+  display: none;
+}
+.logo span {
+  font-size: 24px;
+}
+.navigation {
+  gap: 6px;
+}
+.navigation a {
+  justify-content: center;
+  padding: 10px 5px;
+}
+.navigation a span:last-child {
+  display: none;
+}
+.genres {
+  align-items: center;
+}
+.genres h2 {
+  font-size: 11px;
+}
+.genres a {
+  display: none;
+}
+.theme-toggle {
+  width: 54px;
+  left: 8px;
+  justify-content: center;
+}
+.theme-toggle span {
+  display: none;
+}
+/* ---------- MAIN CONTENT ---------- */
+.main-content {
+  margin-left: 70px;
+  padding: 16px;
+}
+/* ---------- HEADER ---------- */
+.header {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.header-title {
+  text-align: center;
+}
+.header-title h2 {
+  font-size: 22px;
+}
+.header-title p {
+  font-size: 13px;
+}
+.search-bar {
+  width: 100%;
+  margin: 0;
+}
+.search-bar input {
+  width: 100%;
+  font-size: 16px;
+}
+.btn-search {
+  width: 100%;
+  height: 48px;
+  margin: 0;
+  font-size: 22px;
+}
+/* ---------- FEATURED MOVIE ---------- */
+.featured-movie {
+  min-height: 300px;
+}
+.featured-content {
+  width: 100%;
+  min-height: 300px;
+  padding: 24px;
+}
+.featured-content h1 {
+  font-size: 28px;
+}
+.featured-content p {
+  font-size: 13px;
+}
+.featured-meta {
+  gap: 10px;
+  font-size: 12px;
+}
+/* ---------- MOVIE AREA ---------- */
+.movie-area {
+  flex-direction: column;
+  gap: 20px;
+}
+.movie-list-area {
+  width: 100%;
+}
+/* ---------- MOVIE LIST ---------- */
+.movie-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+/* ---------- MOVIE DETAIL ---------- */
+.movie-detail {
+  width: 100%;
+  min-width: 0;
+  max-height: none;
+  border-left: none;
+  border-top: 1px solid var(--border);
+  padding: 16px;
+}
+.movie-detail-poster {
+  max-height: 400px;
+}
+}
+/* ==================== SMALL MOBILE ======================== */
+
+@media (max-width: 400px) {
+/* ---------- SIDEBAR ---------- */
+.sidebar {
+  width: 58px;
+  padding: 0 5px;
+}
+.navigation a {
+  font-size: 18px;
+  padding: 9px 4px;
+}
+.theme-toggle {
+  width: 48px;
+  left: 5px;
+}
+.theme-toggle input {
+  width: 40px;
+  height: 20px;
+}
+.theme-toggle input::before {
+  width: 16px;
+  height: 16px;
+  top: 2px;
+}
+.theme-toggle input:checked::before {
+  transform: translateX(21px);
+}
+/* ---------- MAIN CONTENT ---------- */
+.main-content {
+  margin-left: 58px;
+  padding: 12px;
+}
+/* ---------- HEADER ---------- */
+.header-title h2 {
+  font-size: 19px;
+}
+.header-title p {
+  font-size: 12px;
+}
+/* ---------- FEATURED ---------- */
+.featured-movie {
+  min-height: 280px;
+}
+.featured-content {
+  min-height: 280px;
+  padding: 20px;
+}
+.featured-content h1 {
+  font-size: 24px;
+}
+.featured-content p {
+  font-size: 12px;
+}
+.featured-label {
+  font-size: 13px;
+}
+/* ---------- MOVIE LIST ---------- */
+.movie-list {
+  gap: 8px;
+}
+.movie-info h3 {
+  font-size: 12px;
+}
+.movie-meta {
+  font-size: 11px;
+}
+/* ---------- DETAIL ---------- */
+.movie-detail {
+  padding: 12px;
+}
+.movie-detail-info h2 {
+  font-size: 20px;
+}
+.movie-detail-overview {
+  font-size: 13px;
+}
+/* ---------- PAGINATION ---------- */
+.pagination {
+  gap: 10px;
+  margin: 20px 0;
+}
+.pagination button {
+  padding: 8px 12px;
+  font-size: 12px;
+}
+.pagination span {
+  min-width: 60px;
+  font-size: 12px;
+}
+}
+/* ==================== TRAILER MOBILE ===================== */
+@media (max-width: 600px) {
+.trailer-modal {
+  padding: 10px;
+}
+.trailer-modal-content {
+  width: 100%;
+  max-width: 100%;
+}
+.trailer-modal-close {
+  top: -42px;
+  right: 0;
+}
+}
+/* ==================== VERY SMALL SCREEN =================== */
+@media (max-width: 350px) {
+.sidebar {
+  width: 50px;
+}
+.main-content {
+  margin-left: 50px;
+  padding: 10px;
+}
+.movie-list {
+  gap: 6px;
+}
+.movie-info h3 {
+  font-size: 11px;
+}
+.movie-meta {
+  font-size: 10px;
+}
 }

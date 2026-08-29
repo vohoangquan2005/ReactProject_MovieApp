@@ -35,7 +35,18 @@ function App() {
   const [activePage, setActivePage] = useState("home");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  // Theme (Cái chỉnh sáng tối cho page á)
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "dark";
+  });
 
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleToggleTheme = () => {
+    setTheme((prev) => prev === "dark" ? "light" : "dark");
+  };
   // Loading movies
   const loadMovies = async (page) => {
     setLoading(true);
@@ -123,6 +134,12 @@ function App() {
       setLoading(false);
     }
   }
+  // Clear search
+  const handleClearSearch = () => {
+    setSearch("");
+    setIsSearching(false);
+    setCurrentPage(1);
+  };
   // Click vào Movie Card
   const handleMovieClick = async (movieId) => {
     try {
@@ -180,10 +197,10 @@ function App() {
   const handleWatchTrailer = async (movieId) => {
     try {
       const data = await getMovieVideos(movieId);
+      console.log("Videos:", data.results);
       const trailer = data.results.find((video) =>
         video.site === "YouTube" &&
-        video.type === "Trailer" &&
-        video.official === true
+        video.type === "Trailer"
       );
       setTrailer(trailer || null);
     } catch (error) {
@@ -191,16 +208,19 @@ function App() {
       setTrailer(null);
     }
   };
+
   // Dừng xem trailer
   const handleCloseTrailer = () => {
     setTrailer(null);
   };
 
   return (
-    <div className="app">
+    <div className={`app ${theme}`}>
       <SideBar 
         activePage={activePage}
         handlePageChange={handlePageChange}
+        theme={theme}
+        handleToggleTheme={handleToggleTheme}
       />
 
       <MainContent 
@@ -208,6 +228,7 @@ function App() {
         search={search} 
         setSearch={setSearch}
         handleSearch={handleSearch}
+        handleClearSearch={handleClearSearch}
         loading={loading}
         error={error}
         handleMovieClick={handleMovieClick}

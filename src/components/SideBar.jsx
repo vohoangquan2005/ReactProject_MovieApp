@@ -1,5 +1,5 @@
 // SIDE BAR
-function SideBar({activePage, handlePageChange}) {
+function SideBar({activePage, handlePageChange, theme, handleToggleTheme}) {
     const genres = [
                 { id: 28, name: "Action" },
                 { id: 12, name: "Adventure" },
@@ -97,8 +97,10 @@ function SideBar({activePage, handlePageChange}) {
                     ))}
                 </div>
                 <div className="theme-toggle">
-                    <span>◐ Dark Mode</span>
-                    <input type="checkbox"></input>
+                    <span>{theme === "dark" ? "🌙 Dark Mode" : "☀️ Light Mode"}</span>
+                    <input type="checkbox"
+                           checked={theme === "light"}
+                           onChange={handleToggleTheme} />
                 </div>
             </aside>
         </>

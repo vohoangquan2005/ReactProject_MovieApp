@@ -29,9 +29,13 @@ function MovieCard({ movie, handleMovieClick,
             <div className="movie-poster">
                 <img src={posterUrl} alt={movie.title} />
                 <button className={`favorite-btn ${isFavorite ? "active" : ""}`}
-                        onClick={handleFavoriteClick}> ♥ </button>
+                        onClick={handleFavoriteClick}> 
+                        {isFavorite ? "♥" : "♡"} 
+                </button>
                 <button className={`watchlist-btn ${isWatchlist ? "active" : ""}`}
-                        onClick={handleWatchlistClick}> ▼ </button>
+                        onClick={handleWatchlistClick}> 
+                        {isWatchlist ? "🔖" : "🏷️"} 
+                </button>
             </div>
             <div className="movie-info">
                 <h3>{movie.title}</h3>

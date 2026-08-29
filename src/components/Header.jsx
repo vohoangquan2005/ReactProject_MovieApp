@@ -1,5 +1,5 @@
 // HEADER + SEARCH BAR
-function Header( {search, setSearch, handleSearch }) {
+function Header( {search, setSearch, handleSearch, handleClearSearch }) {
     const onKeyDown = (e) =>{
         if (e.key === "Enter"){
             handleSearch();
@@ -16,9 +16,14 @@ function Header( {search, setSearch, handleSearch }) {
                 <input type="text" placeholder="Search movies..."
                        value={search} 
                        onChange={(e)=>setSearch(e.target.value)}
-                       onKeyDown={onKeyDown}/>
+                       onKeyDown={onKeyDown} />
+                {search && (
+                <button className="clear-search"
+                        onClick={handleClearSearch}
+                > ✕ </button>
+            )}
             </div>
-            <button onClick={handleSearch}> 🔍 </button>
+            <button className="btn-search" onClick={handleSearch}> 🔍 </button>
         </header>
     );
 }

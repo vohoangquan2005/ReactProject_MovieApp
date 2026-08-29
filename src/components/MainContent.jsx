@@ -7,7 +7,7 @@ import MovieSkeleton from "./MovieSkeleton";
 import TrailerModal from "./TrailerModal";
 
 function MainContent( {movies, 
-                      search, setSearch, handleSearch, 
+                      search, setSearch, handleSearch, handleClearSearch,
                       loading, error, 
                       handleMovieClick,
                       selectedMovie,
@@ -30,7 +30,9 @@ function MainContent( {movies,
             <Header 
                 search={search} 
                 setSearch={setSearch}
-                handleSearch={handleSearch}/>
+                handleSearch={handleSearch}
+                handleClearSearch={handleClearSearch}
+            />
                 
             <TrailerModal
                 trailer={trailer}
@@ -38,14 +40,25 @@ function MainContent( {movies,
             />
 
             {activePage === "favorites" && (
-                <h2 className="page-title">❤️ My Favorites</h2>
+                <>
+                    <hr />
+                    <h2 className="page-title">❤️ My Favorites</h2>
+                    <hr /> 
+                    <p>There are {favorites.length} {favorites.length === 1 ? "movie" : "movies"} in the favorite list</p>
+                    <br />
+                </>
             )}
 
             {activePage === "watchlist" && (
-                <h2 className="page-title">🔖 My Watchlist</h2>
+                <>
+                    <hr />
+                    <h2 className="page-title">🔖 My Watchlist</h2>
+                    <hr />
+                    <p>There are {watchlist.length} {watchlist.length === 1 ? "movie" : "movies"} on the watchlist</p>
+                    <br />
+                </>
             )}
 
-            {loading && <p>Loading movies...</p>}
             {error && !loading && <p>{error}</p>}
 
             {!loading && !error && movies.length === 0 && (
@@ -81,20 +94,26 @@ function MainContent( {movies,
 
                 <MovieDetail 
                     movie={selectedMovie} 
-                    handleCloseMovieDetail={handleCloseMovieDetail}/>
+                    handleCloseMovieDetail={handleCloseMovieDetail}
+                    favorites={favorites}
+                    handleFavorite={handleFavorite}
+                    watchlist={watchlist}
+                    handleWatchlist={handleWatchlist}
+                    handleWatchTrailer={handleWatchTrailer}/>
             </div>
-
-            <div className="pagination">
-                <button
-                    disabled={currentPage === 1}
-                    onClick={() => setCurrentPage((prev) => prev - 1)}
-                > ← Previous </button>
-                <span>Page {currentPage}</span>
-                <button
-                    disabled={currentPage >= totalPages}
-                    onClick={() => setCurrentPage((prev) => prev + 1)}
-                > Next → </button>
-            </div>
+            {activePage !== "favorites" && activePage !== "watchlist" && (
+                <div className="pagination">
+                    <button
+                        disabled={currentPage === 1}
+                        onClick={() => setCurrentPage((prev) => prev - 1)}
+                    > ← Previous </button>
+                    <span>Page {currentPage}</span>
+                    <button
+                        disabled={currentPage >= totalPages}
+                        onClick={() => setCurrentPage((prev) => prev + 1)}
+                    > Next → </button>
+                </div>
+            )}
 
             <div className="tooltip-wrapper">
                 <button className="my-btn">VHQ</button>
